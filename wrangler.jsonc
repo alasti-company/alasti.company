@@ -11,4 +11,11 @@
     "not_found_handling": "single-page-application",
   },
   "workers_dev": false,
+  "routes": [
+    {
+      "enabled": true,
+      "custom_domain": true,
+      "pattern": "alasti.company",
+    },
+  ],
 }
