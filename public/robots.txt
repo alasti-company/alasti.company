@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://alasti.computer/sitemap.xml
+Sitemap: https://alasti.company/sitemap.xml
