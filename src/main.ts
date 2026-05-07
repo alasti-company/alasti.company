@@ -21,6 +21,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
       - <a target="_blank" href="https://releasely.dev">https://releasely.dev</a></li>
       - <a target="_blank" href="https://baselines.dev">https://baselines.dev</a></li>
       - <a target="_blank" href="https://gitless.dev">https://gitless.dev</a></li>
+
+    © ${new Date().getFullYear()} THE ALASTI COMPANY 
   </code>
 </pre>
 `;
