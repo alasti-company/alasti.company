@@ -12,10 +12,15 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     CONTACT: <a href="mailto:the@alasti.company">THE@ALASTI.COMPANY</a>
     LOCATION: SAN FRANCISCO, CA
 
-    PROJECTS:
+    PRODUCTS:
+      - <a target="_blank" href="https://wikiflai.com">https://wikiflai.com</a></li>
+      - <a target="_blank" href="https://usealasti.com">https://usealasti.com</a></li>
+      - <a target="_blank" href="https://unishopapp.com">https://unishopapp.com</a></li>
+      - <a target="_blank" href="https://futdrafts.com">https://futdrafts.com</a></li>
       - <a target="_blank" href="https://healthzkit.dev">https://healthzkit.dev</a></li>
       - <a target="_blank" href="https://releasely.dev">https://releasely.dev</a></li>
       - <a target="_blank" href="https://baselines.dev">https://baselines.dev</a></li>
+      - <a target="_blank" href="https://gitless.dev">https://gitless.dev</a></li>
   </code>
 </pre>
 `;
