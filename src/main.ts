@@ -13,10 +13,12 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     LOCATION: SAN FRANCISCO, CA
 
     PRODUCTS:
-      - <a target="_blank" href="https://wikiflai.com">https://wikiflai.com</a></li>
+      - <a target="_blank" href="https://alasti.email">https://alasti.email</a></li>
       - <a target="_blank" href="https://usealasti.com">https://usealasti.com</a></li>
+      - <a target="_blank" href="https://wikiflai.com">https://wikiflai.com</a></li>
       - <a target="_blank" href="https://unishopapp.com">https://unishopapp.com</a></li>
       - <a target="_blank" href="https://futdrafts.com">https://futdrafts.com</a></li>
+      - <a target="_blank" href="https://lyraly.com">https://lyraly.com</a></li>
       - <a target="_blank" href="https://healthzkit.dev">https://healthzkit.dev</a></li>
       - <a target="_blank" href="https://releasely.dev">https://releasely.dev</a></li>
       - <a target="_blank" href="https://baselines.dev">https://baselines.dev</a></li>
