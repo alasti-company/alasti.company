@@ -12,7 +12,7 @@ if (window.location.pathname === "/github" || window.location.pathname === "/git
 }
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-<pre style="margin: 0;">
+<pre>
   <code>
     THE ALASTI COMPANY
 

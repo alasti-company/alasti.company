@@ -48,6 +48,10 @@
   }
 }
 
+#app pre {
+  margin: 0;
+}
+
 body {
   margin: 0;
   padding: 40px;
