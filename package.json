@@ -10,6 +10,7 @@
     "prepare": "vp config"
   },
   "dependencies": {
+    "onedollarstats": "^0.0.19",
     "wrangler": "^4.88.0"
   },
   "devDependencies": {
