@@ -1,0 +1,19 @@
+package.json
+  s_a6224c678d922e::t_a479b7e3c14601 38-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "0fe5b800705a6b73da27f6b7a04d2babfeb92049",
+  "prompts": {},
+  "sessions": {
+    "s_a6224c678d922e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a18ba9-1515-7641-b5ea-95de4b9ffa2c",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Kourosh Alasti <coding@kouroshalasti.com>"
+    }
+  }
+}
