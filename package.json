@@ -11,24 +11,34 @@
   },
   "dependencies": {
     "onedollarstats": "^0.0.19",
-    "wrangler": "^4.88.0"
+    "wrangler": "^4.156.0"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.36.0",
+    "@cloudflare/vite-plugin": "^1.66.0",
     "typescript": "~6.0.2",
-    "vite": "npm:@voidzero-dev/vite-plus-core@latest",
-    "vite-plus": "latest"
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.4.0",
+    "vite-plus": "1.4.0"
+  },
+  "engines": {
+    "node": "^22.18.0 || ^24.11.0 || >=26.0.0"
   },
   "packageManager": "pnpm@10.33.4",
   "pnpm": {
     "overrides": {
-      "vite": "npm:@voidzero-dev/vite-plus-core@latest",
-      "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
+      "vite@*": "npm:@voidzero-dev/vite-plus-core@1.4.0",
+      "vitest@*": "5.0.5"
     },
     "onlyBuiltDependencies": [
       "esbuild",
       "sharp",
       "workerd"
-    ]
+    ],
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "@cloudflare/vite-plugin>vite": "1.4.0",
+        "@vitest/mocker>vite": "1.4.0",
+        "vitest>vite": "1.4.0"
+      }
+    }
   }
 }

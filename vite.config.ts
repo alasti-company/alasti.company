@@ -1,8 +1,9 @@
 import { defineConfig } from "vite-plus";
 import { cloudflare } from "@cloudflare/vite-plugin";
 
-export default defineConfig({
-  plugins: [cloudflare()],
+export default defineConfig(({ mode }) => ({
+  // Unit tests do not need the Cloudflare development server.
+  plugins: mode === "test" ? [] : [cloudflare()],
   staged: {
     "*": "vp check --fix",
   },
@@ -10,4 +11,4 @@ export default defineConfig({
   build: {
     minify: true,
   },
-});
+}));
