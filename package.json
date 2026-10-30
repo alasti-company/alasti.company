@@ -35,7 +35,9 @@
     ],
     "peerDependencyRules": {
       "allowedVersions": {
-        "vite": "1.4.0"
+        "@cloudflare/vite-plugin>vite": "1.4.0",
+        "@vitest/mocker>vite": "1.4.0",
+        "vitest>vite": "1.4.0"
       }
     }
   }
