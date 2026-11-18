@@ -1,0 +1,149 @@
+diff --git a/lib/parse.js b/lib/parse.js
+index 2920751..5ff2d5d 100644
+--- a/lib/parse.js
++++ b/lib/parse.js
+@@ -161,6 +161,107 @@ const hasRepeatedCharPrefixOverlap = branches => {
+   return false;
+ };
+ 
++// An unescaped `*` outside a character class nests an unbounded quantifier.
++// Stars inside `[]` are literals, and escaped stars (`\`) are literals.
++const hasUnescapedStar = branch => countUnescapedStars(branch) > 0;
++
++// Character classes do not nest. A `]` closes the class, except when it is
++// the first character of `[]` or `[^]`, where picomatch treats it as literal.
++const countUnescapedStars = branch => {
++  let escaped = false;
++  let brackets = false;
++  let value = '';
++  let stars = 0;
++
++  for (let i = 0; i < branch.length; i++) {
++    const ch = branch[i];
++
++    if (escaped === true) {
++      escaped = false;
++      value += ch;
++      continue;
++    }
++
++    if (ch === '\\') {
++      escaped = true;
++      value += ch;
++      continue;
++    }
++
++    if (brackets === true && (ch !== ']' || value === '[' || value === '[^')) {
++      value += ch;
++      continue;
++    }
++
++    if (ch === '[') {
++      if (branch.slice(i + 1).includes(']')) {
++        brackets = true;
++        value = '[';
++      }
++
++      continue;
++    }
++
++    if (ch === ']' && brackets === true) {
++      brackets = false;
++      value = '';
++      continue;
++    }
++
++    if (ch === '*') {
++      stars++;
++    }
++  }
++
++  return stars;
++};
++
++// One `*` plus literals is idempotent under repetition: `+(*a)` matches the
++// same strings as `*a`. Returns the literal prefix and suffix around that star.
++// Character classes are not literals (`[ab]*` is not a drop-in regex fragment),
++// so a branch that contains `[]` is left for the literalize path.
++const singleStarParts = branch => {
++  if (branch.includes('[') || branch.includes(']')) {
++    return;
++  }
++
++  let escaped = false;
++  let star = -1;
++
++  for (let i = 0; i < branch.length; i++) {
++    const ch = branch[i];
++
++    if (escaped === true) {
++      escaped = false;
++      continue;
++    }
++
++    if (ch === '\\') {
++      escaped = true;
++      continue;
++    }
++
++    if (ch === '*') {
++      if (star !== -1 || branch.includes('\\')) {
++        return;
++      }
++
++      star = i;
++      continue;
++    }
++
++    if ('?(){}|'.includes(ch)) {
++      return;
++    }
++  }
++
++  if (star === -1) {
++    return;
++  }
++
++  return { prefix: branch.slice(0, star), suffix: branch.slice(star + 1) };
++};
++
+ const parseRepeatedExtglob = (pattern, requireEnd = true) => {
+   if ((pattern[0] !== '+' && pattern[0] !== '*') || pattern[1] !== '(') {
+     return;
+@@ -306,6 +407,36 @@ const analyzeRepeatedExtglob = (body, options) => {
+     }
+   }
+ 
++  // GHSA-fc5q-39xc-vjpf: single-branch repeated extglobs such as `+(*)` and
++  // `+(*a)` skipped the checks above and compiled to nested unbounded
++  // quantifiers. A single `*` plus literals matches the same strings once as
++  // it does repeated (`+(*a)` == `*a`), so emit that non-nested form. Other
++  // shapes are literalized. A `*(a)` sequence of single characters still
++  // reduces to a flat character class below.
++  if (branches.length === 1 && hasUnescapedStar(branches[0])) {
++    const branch = branches[0];
++    const parts = singleStarParts(branch);
++    const literal = normalizeSimpleBranch(branch);
++
++    if (parts) {
++      // Match the star the normal parser emits: `.*` in bash (slashes are
++      // allowed), `[^\\/]*` when windows separators are backslashes, and
++      // `[^/]*` otherwise. One star plus literals is idempotent, so this
++      // flat form matches the same strings as the nested extglob.
++      const star =
++        options.bash === true ? '.*' : options.windows === true ? '[^\\\\/]*' : '[^/]*';
++
++      return {
++        risky: true,
++        safeOutput: `${utils.escapeRegex(parts.prefix)}${star}${utils.escapeRegex(parts.suffix)}`
++      };
++    }
++
++    if (!getStarExtglobSequenceChars(branch) && !(literal && literal.length === 1)) {
++      return { risky: true };
++    }
++  }
++
+   // A repeated extglob is "risky" (prone to catastrophic backtracking) when a
+   // branch is itself a `*(...)` sequence, since that nests an unbounded quantifier
+   // inside the outer `+(...)`/`*(...)`. When *every* branch reduces to single
