@@ -1,0 +1,26 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
+
+audit:
+  ignore:
+    - GHSA-fc5q-39xc-vjpf
+
+minimumReleaseAgeExclude:
+  - "@cloudflare/vite-plugin@1.70.0"
+  - miniflare@5.20261117.0-beta
+  - wrangler@4.164.0
+
+overrides:
+  "vite@*": "npm:@voidzero-dev/vite-plus-core@8.3.8000"
+  "vitest@*": "5.1.0"
+
+patchedDependencies:
+  picomatch@4.0.7: patches/picomatch@4.0.7.patch
+
+peerDependencyRules:
+  allowedVersions:
+    "@cloudflare/vite-plugin>vite": "8.3.8000"
+    "@vitest/mocker>vite": "8.3.8000"
+    "vitest>vite": "8.3.8000"

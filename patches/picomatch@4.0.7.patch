@@ -1,0 +1,55 @@
+diff --git a/lib/parse.js b/lib/parse.js
+index 29207512c60183b4bb9bf5112be3b9b5f4a9a9fd..948eebcee8ba090ddfd03648b045b94d00b22ae0 100644
+--- a/lib/parse.js
++++ b/lib/parse.js
+@@ -161,6 +161,30 @@ const hasRepeatedCharPrefixOverlap = branches => {
+   return false;
+ };
+ 
++// An unescaped `*` inside a repeated extglob nests an unbounded quantifier.
++// Escaped stars (`\`) are literals and are not treated as wildcards.
++const hasUnescapedStar = branch => {
++  let escaped = false;
++
++  for (const ch of branch) {
++    if (escaped === true) {
++      escaped = false;
++      continue;
++    }
++
++    if (ch === '\\') {
++      escaped = true;
++      continue;
++    }
++
++    if (ch === '*') {
++      return true;
++    }
++  }
++
++  return false;
++};
++
+ const parseRepeatedExtglob = (pattern, requireEnd = true) => {
+   if ((pattern[0] !== '+' && pattern[0] !== '*') || pattern[1] !== '(') {
+     return;
+@@ -306,6 +330,19 @@ const analyzeRepeatedExtglob = (body, options) => {
+     }
+   }
+ 
++  // GHSA-fc5q-39xc-vjpf: single-branch repeated extglobs such as `+(*)` and
++  // `+(*a)` skipped the checks above and compiled to nested unbounded
++  // quantifiers. Literalize those branches. A `*(a)` sequence of single
++  // characters still reduces to a flat character class below.
++  if (branches.length === 1 && hasUnescapedStar(branches[0])) {
++    const branch = branches[0];
++    const literal = normalizeSimpleBranch(branch);
++
++    if (!getStarExtglobSequenceChars(branch) && !(literal && literal.length === 1)) {
++      return { risky: true };
++    }
++  }
++
+   // A repeated extglob is "risky" (prone to catastrophic backtracking) when a
+   // branch is itself a `*(...)` sequence, since that nests an unbounded quantifier
+   // inside the outer `+(...)`/`*(...)`. When *every* branch reduces to single
