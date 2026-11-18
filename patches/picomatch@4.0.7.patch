@@ -1,8 +1,8 @@
 diff --git a/lib/parse.js b/lib/parse.js
-index 2920751..f251b6d 100644
+index 2920751..5ff2d5d 100644
 --- a/lib/parse.js
 +++ b/lib/parse.js
-@@ -161,6 +161,90 @@ const hasRepeatedCharPrefixOverlap = branches => {
+@@ -161,6 +161,107 @@ const hasRepeatedCharPrefixOverlap = branches => {
    return false;
  };
  
@@ -10,33 +10,50 @@ index 2920751..f251b6d 100644
 +// Stars inside `[]` are literals, and escaped stars (`\`) are literals.
 +const hasUnescapedStar = branch => countUnescapedStars(branch) > 0;
 +
++// Character classes do not nest. A `]` closes the class, except when it is
++// the first character of `[]` or `[^]`, where picomatch treats it as literal.
 +const countUnescapedStars = branch => {
 +  let escaped = false;
-+  let bracket = 0;
++  let brackets = false;
++  let value = '';
 +  let stars = 0;
 +
-+  for (const ch of branch) {
++  for (let i = 0; i < branch.length; i++) {
++    const ch = branch[i];
++
 +    if (escaped === true) {
 +      escaped = false;
++      value += ch;
 +      continue;
 +    }
 +
 +    if (ch === '\\') {
 +      escaped = true;
++      value += ch;
++      continue;
++    }
++
++    if (brackets === true && (ch !== ']' || value === '[' || value === '[^')) {
++      value += ch;
 +      continue;
 +    }
 +
 +    if (ch === '[') {
-+      bracket++;
++      if (branch.slice(i + 1).includes(']')) {
++        brackets = true;
++        value = '[';
++      }
++
 +      continue;
 +    }
 +
-+    if (ch === ']' && bracket > 0) {
-+      bracket--;
++    if (ch === ']' && brackets === true) {
++      brackets = false;
++      value = '';
 +      continue;
 +    }
 +
-+    if (bracket === 0 && ch === '*') {
++    if (ch === '*') {
 +      stars++;
 +    }
 +  }
@@ -93,7 +110,7 @@ index 2920751..f251b6d 100644
  const parseRepeatedExtglob = (pattern, requireEnd = true) => {
    if ((pattern[0] !== '+' && pattern[0] !== '*') || pattern[1] !== '(') {
      return;
-@@ -306,6 +390,29 @@ const analyzeRepeatedExtglob = (body, options) => {
+@@ -306,6 +407,36 @@ const analyzeRepeatedExtglob = (body, options) => {
      }
    }
  
@@ -109,9 +126,16 @@ index 2920751..f251b6d 100644
 +    const literal = normalizeSimpleBranch(branch);
 +
 +    if (parts) {
++      // Match the star the normal parser emits: `.*` in bash (slashes are
++      // allowed), `[^\\/]*` when windows separators are backslashes, and
++      // `[^/]*` otherwise. One star plus literals is idempotent, so this
++      // flat form matches the same strings as the nested extglob.
++      const star =
++        options.bash === true ? '.*' : options.windows === true ? '[^\\\\/]*' : '[^/]*';
++
 +      return {
 +        risky: true,
-+        safeOutput: `${utils.escapeRegex(parts.prefix)}[^/]*${utils.escapeRegex(parts.suffix)}`
++        safeOutput: `${utils.escapeRegex(parts.prefix)}${star}${utils.escapeRegex(parts.suffix)}`
 +      };
 +    }
 +

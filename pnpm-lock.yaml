@@ -9,7 +9,7 @@ overrides:
   vitest@*: 5.1.0
 
 patchedDependencies:
-  picomatch@4.0.7: 145b34efcc791af949f549d1f886fc4f52dfc6ba65315bae80401b46c51c5639
+  picomatch@4.0.7: b2adc4e258f804cc1c1cc2cf97c685010f9c7880bef8fb26974377ea2f0f9d0c
 
 importers:
 
@@ -2373,9 +2373,9 @@ snapshots:
 
   expect-type@1.4.0: {}
 
-  fdir@6.5.0(picomatch@4.0.7(patch_hash=145b34efcc791af949f549d1f886fc4f52dfc6ba65315bae80401b46c51c5639)):
+  fdir@6.5.0(picomatch@4.0.7(patch_hash=b2adc4e258f804cc1c1cc2cf97c685010f9c7880bef8fb26974377ea2f0f9d0c)):
     optionalDependencies:
-      picomatch: 4.0.7(patch_hash=145b34efcc791af949f549d1f886fc4f52dfc6ba65315bae80401b46c51c5639)
+      picomatch: 4.0.7(patch_hash=b2adc4e258f804cc1c1cc2cf97c685010f9c7880bef8fb26974377ea2f0f9d0c)
 
   fflate@0.8.3: {}
 
@@ -2531,7 +2531,7 @@ snapshots:
 
   picocolors@1.1.1: {}
 
-  picomatch@4.0.7(patch_hash=145b34efcc791af949f549d1f886fc4f52dfc6ba65315bae80401b46c51c5639): {}
+  picomatch@4.0.7(patch_hash=b2adc4e258f804cc1c1cc2cf97c685010f9c7880bef8fb26974377ea2f0f9d0c): {}
 
   pngjs@7.0.0: {}
 
@@ -2601,8 +2601,8 @@ snapshots:
 
   tinyglobby@0.2.17:
     dependencies:
-      fdir: 6.5.0(picomatch@4.0.7(patch_hash=145b34efcc791af949f549d1f886fc4f52dfc6ba65315bae80401b46c51c5639))
-      picomatch: 4.0.7(patch_hash=145b34efcc791af949f549d1f886fc4f52dfc6ba65315bae80401b46c51c5639)
+      fdir: 6.5.0(picomatch@4.0.7(patch_hash=b2adc4e258f804cc1c1cc2cf97c685010f9c7880bef8fb26974377ea2f0f9d0c))
+      picomatch: 4.0.7(patch_hash=b2adc4e258f804cc1c1cc2cf97c685010f9c7880bef8fb26974377ea2f0f9d0c)
 
   tinypool@2.2.0: {}
 
@@ -2724,7 +2724,7 @@ snapshots:
       expect-type: 1.4.0
       magic-string: 1.4.5
       obug: 3.0.0
-      picomatch: 4.0.7(patch_hash=145b34efcc791af949f549d1f886fc4f52dfc6ba65315bae80401b46c51c5639)
+      picomatch: 4.0.7(patch_hash=b2adc4e258f804cc1c1cc2cf97c685010f9c7880bef8fb26974377ea2f0f9d0c)
       std-env: 4.3.0
       tinybench: 6.2.3
       tinyexec: 1.3.1
