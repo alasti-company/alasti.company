@@ -1,0 +1,26 @@
+src/main.ts
+  s_a885c51409110e::t_9f51abacc67f06 12-13
+src/style.css
+  s_a885c51409110e::t_d6bff0b59b0d8e 53,61-65
+  s_a885c51409110e::t_1e4ef30a2e636c 54
+  s_a885c51409110e::t_1bbe09876c2819 57-60,66-67
+index.html
+  s_a885c51409110e::t_fee694a2655792 35
+  s_a885c51409110e::t_a2694b4ada987f 39-66,69-96
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "62ac00ccd51f08b024667648ddaf2ba25d71af59",
+  "prompts": {},
+  "sessions": {
+    "s_a885c51409110e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "01a1ee2e-6c63-7ae1-920b-f3d35e6f7826",
+        "model": "unknown"
+      },
+      "human_author": "Kourosh Alasti <coding@kouroshalasti.com>"
+    }
+  }
+}
