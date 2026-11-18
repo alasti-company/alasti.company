@@ -1,0 +1,21 @@
+index.html
+  s_a885c51409110e::t_8dfac7203c77a2 70,92
+src/style.css
+  s_a885c51409110e::t_66e35c0fbc72d3 51-52,62-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "e5012664dfe39bc7cc6f4d38931ff65c2876f99f",
+  "prompts": {},
+  "sessions": {
+    "s_a885c51409110e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "01a1ee2e-6c63-7ae1-920b-f3d35e6f7826",
+        "model": "unknown"
+      },
+      "human_author": "Kourosh Alasti <coding@kouroshalasti.com>"
+    }
+  }
+}
