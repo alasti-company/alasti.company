@@ -1,0 +1,23 @@
+package.json
+  s_2ea5a08c2517f4::t_5107317d669218 13-14,17-20
+  s_2ea5a08c2517f4::t_cedfcd2242e313 25
+pnpm-workspace.yaml
+  s_2ea5a08c2517f4::t_af96a76e68d864 2-15,18-23
+  s_2ea5a08c2517f4::t_5fb20b3640f577 16-17,24-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "e197e7b1a5573fbf5b634ef0f64d767edd88bff8",
+  "prompts": {},
+  "sessions": {
+    "s_2ea5a08c2517f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "01a1eccf-99b0-7a73-acea-5b5c04b68636",
+        "model": "unknown"
+      },
+      "human_author": "Kourosh Alasti <coding@kouroshalasti.com>"
+    }
+  }
+}
