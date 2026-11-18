@@ -48,8 +48,27 @@
   }
 }
 
+#app pre,
+#app h1 {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
 #app pre {
   margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+#app h1 {
+  margin: 0;
+  padding: 0 0 0 4ch;
+  white-space: pre;
 }
 
 body {
